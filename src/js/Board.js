@@ -34,8 +34,8 @@ export default class Board {
 
   addBoardStyle() {
     const widthPage = window.innerWidth;
-    this.getFullBoard().style.width = `${this.size * 0.4 - this.border * 2}px`;
-    this.getFullBoard().style.height = `${this.size * 0.4 - this.border * 2}px`;
+    this.getFullBoard().style.width = `${this.size * 0.85 - this.border * 2}px`;
+    this.getFullBoard().style.height = `${this.size * 0.85 - this.border * 2}px`;
     this.getFullBoard().style.border = `${this.border}px solid opasiti`;
   }
 
