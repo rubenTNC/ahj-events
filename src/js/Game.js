@@ -9,6 +9,8 @@ export default class Game {
     this.border = border;
     this.size = size;
     this.start();
+    this.onClick = this.onClick.bind(this)
+    this.selector.addEventListener("click", this.onClick)
   }
 
   addGame() {
@@ -48,15 +50,13 @@ export default class Game {
     board.addBoardStyle();
     board.addItemBoard();
     board.move();
-    const itemsBoard = board.boardItems;
-    for (const item of itemsBoard) {
-      item.addEventListener('click', (event) => {
-        if (event.target !== item) {
-          this.count += 1;
-          this.removeCount();
-          this.renderCount();
-        }
-      });
+  }
+
+  onClick(event) {
+    if (event.target == this.selector.querySelector("img")) {
+      this.count += 1;
+      this.removeCount();
+      this.renderCount();
     }
   }
 

@@ -5,6 +5,7 @@ export default class Goblin {
 
   getGoblin() {
     const goblin = document.createElement('img');
+    goblin.classList.add("goblin")
     goblin.setAttribute('src', this.img);
     return goblin;
   }
