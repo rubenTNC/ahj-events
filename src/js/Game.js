@@ -13,10 +13,12 @@ export default class Game {
     this.start();
     this.onClick = this.onClick.bind(this)
     this.selector.addEventListener("click", this.onClick)
-    setInterval(() => {
-      this.pass++
-      this.upDateCount()
-      this.check()
+    setTimeout(() => {
+      setInterval(() => {
+        this.pass++
+        this.upDateCount()
+        this.check()
+      }, 1000)
     }, 1000)
   }
 
