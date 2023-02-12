@@ -83,9 +83,9 @@ export default class Game {
     if (event.target == this.selector.querySelector("img")) {
       this.selector.querySelector("img").remove()
       this.board.addGoblin()
-      this.pass --;
       this.count += 1;
       this.upDateCount()
+      this.pass --;
     }
   }
 
