@@ -47,15 +47,9 @@ export default class Board {
   }
 
   move() {
-    this.addGoblin();
     setInterval(() => {
-      const activeIndex = this.boardItems.findIndex((item) => item.querySelector('img'));
-      const random = randomNumbers(0, this.boardItems.length);
-      const child = this.boardItems[activeIndex].querySelector('img');
-      if (random !== activeIndex) {
-        this.boardItems[activeIndex].removeChild(child);
-        this.addGoblin();
-      }
-    }, 1000);
+      this.selector.querySelector(".goblin").remove()
+      this.addGoblin()
+    }, 1000)
   }
 }

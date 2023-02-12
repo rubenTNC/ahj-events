@@ -6,11 +6,18 @@ export default class Game {
     this.img = img;
     this.findSise = findSise;
     this.count = 0;
+    this.pass = 0;
     this.border = border;
     this.size = size;
+    this.board = new Board(this.findSise, this.border, this.size, this.selector, this.img);
     this.start();
     this.onClick = this.onClick.bind(this)
     this.selector.addEventListener("click", this.onClick)
+    setInterval(() => {
+      this.pass++
+      this.upDateCount()
+      this.check()
+    }, 1000)
   }
 
   addGame() {
@@ -26,7 +33,7 @@ export default class Game {
   renderCount() {
     const gameCount = document.createElement('span');
     gameCount.classList.add('game__count');
-    gameCount.textContent = `Ваш счет: ${this.count}`;
+    gameCount.textContent = `Ваш счет: ${this.count}  Пропуски ${this.pass}`;
     const board = this.selector.querySelector('.board');
     board.insertAdjacentElement('beforeBegin', gameCount);
   }
@@ -36,27 +43,49 @@ export default class Game {
     child.remove();
   }
 
+  upDateCount() {
+    const child = this.selector.querySelector('.game__count');
+    child.remove();
+    const gameCount = document.createElement('span');
+    gameCount.classList.add('game__count');
+    gameCount.textContent = `Ваш счет: ${this.count}  Пропуски ${this.pass}`;
+    const board = this.selector.querySelector('.board');
+    board.insertAdjacentElement('beforeBegin', gameCount);
+  }
+
   getGame() {
     return this.selector.querySelector('.game');
   }
 
-  getBoard() {
-    return new Board(this.findSise, this.border, this.size, this.selector, this.img);
-  }
-
   addBoard() {
-    const board = this.getBoard();
-    this.getGame().append(board.getBoard());
-    board.addBoardStyle();
-    board.addItemBoard();
-    board.move();
+    this.getGame().append(this.board.getBoard());
+    this.board.addBoardStyle();
+    this.board.addItemBoard();
+    this.board.addGoblin()
+    this.board.move()
+
+
+  }
+  check() {
+    if (this.pass === 5) {
+      alert("Вы проиграли")
+      this.pass = 0;
+      this.count = 0;
+    }
+    if (this.count === 5) {
+      alert("Вы победили")
+      this.pass = 0;
+      this.count = 0;
+    }
   }
 
   onClick(event) {
     if (event.target == this.selector.querySelector("img")) {
+      this.selector.querySelector("img").remove()
+      this.board.addGoblin()
+      this.pass --;
       this.count += 1;
-      this.removeCount();
-      this.renderCount();
+      this.upDateCount()
     }
   }
 
